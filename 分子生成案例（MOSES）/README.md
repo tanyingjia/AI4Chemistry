@@ -9,27 +9,24 @@
 *   掌握从大型化学数据库（CHEMBL）获取和预处理分子数据的方法。
 *   学习使用 MOSES 提供的标准化指标全面评估生成模型。
 *   深入理解各项评估指标背后的化学与模型性能意义。
-
-分子生成案例 (MOSES)/
-├── data/
-│ ├── generate_mol.csv # 模型生成的分子
-│ ├── test.csv # 测试集
-│ ├── test_stats.npz # 测试集的预计算统计信息，用于加速评估
-│ └── train.csv # 训练集
-│
-└── moses/
-├── char_rnn/
-│ ├── model.py # charRNN 模型网络结构定义
-│ └── trainer.py # 模型训练脚本
-│
-├── dataset/
-│ └── dataset.py # 数据集加载与处理
-│
-└── metrics/
-├── metrics.py # 计算所有评估指标的主脚本
-├── NP_Score/ # Natural Product-likeness score 计算模块
-├── SA_Score/ # Synthetic Accessibility score 计算模块
-└── mcf.csv # 药物化学过滤器相关数据
+## 文件及脚本存放位置及作用
+*   `分子生成案例 (MOSES)/`
+    *   `data/`
+        *   `generate_mol.csv`   # 模型生成的分子
+        *   `test.csv`           # 测试集
+        *   `test_stats.npz`     # 测试集的预计算统计信息，用于加速评估
+        *   `train.csv`          # 训练集
+    *   `moses/`
+        *   `char_rnn/`
+            *   `model.py`       # charRNN 模型网络结构定义
+            *   `trainer.py`     # 模型训练脚本
+        *   `dataset/`
+            *   `dataset.py`     # 数据集加载与处理
+        *   `metrics/`
+            *   `metrics.py`     # 计算所有评估指标的主脚本
+            *   `NP_Score/`      # Natural Product-likeness score 计算模块
+            *   `SA_Score/`      # Synthetic Accessibility score 计算模块
+            *   `mcf.csv`        # 药物化学过滤器相关数据
 		
 *   **`data/`**: 存放所有与数据相关的文件，包括原始的训练/测试集和模型生成的结果。
 *   **`moses/`**: `MOSES` 框架的核心代码。
@@ -48,8 +45,8 @@
 5.  **性能评估**: 使用 `moses/metrics/metrics.py` 脚本，将生成的分子与测试集进行比较，计算一系列标准化指标。
 
 ## 如何使用
-在jupyter notebook 或者 jupyter lab中运行
-结果与讨论
+在jupyter notebook 或者 jupyter lab中运行run.ipynb
+## 结果与讨论
 模型生成1000个分子后的评估结果如下：
 | 指标 (Metric)          | 结果    | 解释与意义                                                                                                                                                             |
 | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
