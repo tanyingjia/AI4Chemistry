@@ -1,16 +1,7 @@
 分子生成案例 (MOSES - charRNN)
-文献来源：Polykovskiy, D., Zhebrak, A., Sanchez-Lengeling, B., Golovanov, S., Tatanov, O., Belyaev, S., ... & Zhavoronkov, A. (2020). Molecular sets (MOSES): a benchmarking platform for molecular generation models. Frontiers in pharmacology, 11, 565644.
-
-本项目是一个基于 MOSES 框架，使用字符级循环神经网络（charRNN）进行从头分子生成的教学案例。案例完整地展示了从数据预处理、模型训练、分子生成到性能评估的全过程。
-目录
+文献来源: Polykovskiy, D., Zhebrak, A., Sanchez-Lengeling, B., Golovanov, S., Tatanov, O., Belyaev, S., ... & Zhavoronkov, A. (2020). Molecular sets (MOSES): a benchmarking platform for molecular generation models. Frontiers in pharmacology, 11, 565644.
 项目简介
-项目结构
-实验流程
-如何使用
-结果与讨论
-拓展思考
-主要依赖
-项目简介
+本项目是一个基于 MOSES 框架，使用字符级循环神经网络 (charRNN) 进行从头分子生成的教学案例。案例完整地展示了从数据预处理、模型训练、分子生成到性能评估的全过程。
 在现代药物研发中，利用AI设计具有理想化学特性的新分子已成为重要方向。本项目旨在：
 教学员如何利用 MOSES 框架训练一个 charRNN 模型。
 掌握从大型化学数据库（CHEMBL）获取和预处理分子数据的方法。
@@ -47,20 +38,14 @@ metrics/: 包含了用于评估生成分子质量的所有脚本和依赖。
 实验流程
 数据收集与预处理: 从 CHEMBL 数据库下载约45万个活性小分子。经过SMILES标准化、去重，并筛选出 Ki值小于1nM 的高活性分子，最终得到约25万个分子。
 数据集划分: 将数据集按7:3的比例随机划分为训练集 (train.csv) 和测试集 (test.csv)。
-模型训练: 使用 moses/char_rnn 中的模型，在训练集上进行训练。
+模型训练:
+模型选择: 使用 moses/char_rnn 中的模型，在训练集上进行训练。
 特征化: SMILES字符串首先被转换为整数索引序列，再通过一个嵌入层（Embedding Layer）转换为模型能够处理的、包含化学语义的特征向量。
 训练: 模型在训练集上被训练了 10个轮次 (Epochs)。
 分子生成: 使用训练好的模型进行采样，生成 1000个 新分子，并保存到 data/generate_mol.csv。
 性能评估: 使用 moses/metrics/metrics.py 脚本，将生成的分子与测试集进行比较，计算一系列标准化指标。
 如何使用
-1. 模型训练
-使用 trainer.py 脚本和准备好的训练数据来训练模型。
-注意: 上述命令为示例，请根据实际 trainer.py 的参数进行调整。训练好的模型权重将保存在 checkpoints/ 目录下。
-2. 分子采样
-使用训练好的模型权重生成新的分子。
-3. 性能评估
-最后，使用 metrics.py 脚本评估生成的分子的质量。
-注意: 评估脚本需要提前计算好测试集的骨架和统计信息。
+在jupyter notebook 或者 jupyter lab中运行
 结果与讨论
 模型生成1000个分子后的评估结果如下：
 指标 (Metric)	结果	解释与意义
@@ -74,4 +59,3 @@ Scaf/Test (骨架相似度)	0.357	比较分子核心骨架（Scaffold）的分�
 IntDiv (内部多样性)	0.875	生成分子集合内部成员间的平均不相似度。高分值表示生成的分子库本身结构多样，化学空间覆盖更广。
 Filters (药物化学过滤器)	0.843	通过一组标准药物化学过滤器（如PAINS）的分子比例。高通过率意味着生成的分子更具“类药性”和开发潜力。
 理化性质 (logP, SA, QED等)	< 0.1	衡量生成分子与测试集在关键理化性质分布上的差异。值越接近0，说明模型能准确复现真实分子的性质分布。
-
